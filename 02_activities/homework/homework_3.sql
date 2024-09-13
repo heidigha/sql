@@ -14,7 +14,17 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
+-- option2 ... without JOIN
+SELECT customer_first_name, customer_last_name
+FROM customer 
 
+WHERE customer_id IN(
+	SELECT customer_id
+
+	FROM  customer_purchases as cp
+	GROUP by customer_id
+	HAVING sum(quantity*cost_to_customer_per_qty)  > 200
+) 
 
 
 
