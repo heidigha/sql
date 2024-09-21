@@ -69,3 +69,27 @@ Remember that money spent is quantity*cost_to_customer_per_qty.
 HINTS: you will need to AGGREGATE, GROUP BY, and filter...
 but remember, STRFTIME returns a STRING for your WHERE statement!! */
 
+WITH customer_daily_purchases AS(
+	SELECT *,
+	STRFTIME('%m',market_date) AS market_month,
+	strftime('%Y', market_date) AS market_year,
+	SUM(quantity*cost_to_customer_per_qty) as cost
+  
+	FROM customer_purchases cp
+	GROUP BY
+	product_id, vendor_id, market_date, customer_id
+)
+
+
+SELECT 
+product_id
+,vendor_id
+,customer_id
+,market_year
+, market_month,
+sum(cost) as monthly_purchases
+
+FROM customer_daily_purchases 
+GROUP by market_year, market_month, vendor_id, product_id, customer_id
+
+HAVING market_year = '2022' AND  market_month = '04'
