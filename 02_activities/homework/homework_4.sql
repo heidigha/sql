@@ -46,6 +46,21 @@ FROM customer_purchases cp
 then write another query that uses this one as a subquery (or temp table) and filters the results to 
 only the customer’s most recent visit. */
 
+SELECT *
+
+FROM(
+
+	SELECT
+	customer_id,
+	market_date,
+	ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY market_date DESC) as visit
+
+	FROM customer_purchases cp
+	
+)x
+	
+WHERE x.visit = 1
+
 
 /* 3. Using a COUNT() window function, include a value along with each row of the 
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
