@@ -14,18 +14,16 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
--- option2 ... without JOIN
+	
 SELECT customer_first_name, customer_last_name
-FROM customer 
+,SUM(quantity*cost_to_customer_per_qty) as cost
+FROM customer_purchases as cp
+INNER JOIN customer as c
+	ON c.customer_id = cp.customer_id
+GROUP by cp.customer_id
 
-WHERE customer_id IN(
-	SELECT customer_id
-
-	FROM  customer_purchases as cp
-	GROUP by customer_id
-	HAVING sum(quantity*cost_to_customer_per_qty)  > 200
-) 
-
+HAVING cost > 2000
+ORDER BY c.customer_last_name, c.customer_first_name ASC
 
 
 --Temp Table
