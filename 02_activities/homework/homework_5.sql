@@ -10,6 +10,22 @@ How many customers are there (y).
 Before your final group by you should have the product of those two queries (x*y).  */
 
 
+SELECT 
+	COUNT(DISTINCT vendor_id) AS x,
+	COUNT(DISTINCT product_id) AS y,
+    (5 * COUNT(DISTINCT c.customer_id) * vi.original_price) AS profit
+	
+FROM 
+    vendor_inventory vi
+	
+CROSS JOIN 
+    customer c
+	
+GROUP BY 
+    vi.vendor_id,
+    vi.product_id,
+    vi.original_price
+
 
 -- INSERT
 /*1.  Create a new table "product_units". 
