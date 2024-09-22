@@ -111,6 +111,40 @@ HINT: There are a possibly a few ways to do this query, but if you're struggling
 3) Query the second temp table twice, once for the best day, once for the worst day, 
 with a UNION binding them. */
 
+WITH daily_p AS (
+	SELECT 
+		market_date,
+		sum(quantity*cost_to_customer_per_qty) as purchase
 
+	FROM 
+			customer_purchases
+	
+GROUP BY market_date
+),
+rank_p AS  ( 
+	SELECT	market_date, purchase,
+		RANK() OVER(ORDER BY purchase DESC) as rank_high,
+		RANK() OVER(ORDER BY purchase ASC) as rank_low
+		
+	FROM daily_p
+)
+	
+SELECT market_date, 
+	purchase,
+	'best_day' as ranking
+	
+FROM rank_p
+	
+WHERE rank_high = 1
+	
+UNION
+	
+SELECT market_date,
+purchase,
+'worst_day' AS ranking
+	
+FROM rank_p
+	WHERE rank_low = 1
+	
 
 
