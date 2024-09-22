@@ -69,9 +69,10 @@ customer_purchases table that indicates how many different times that customer h
 SELECT customer_id,
 market_date,
 product_id,
-count(1) OVER(PARTITION by  product_id order by customer_id) as purchases
 
-FROM customer_purchases cp
+	count(1) OVER(PARTITION by  product_id order by customer_id) as purchases
+
+	FROM customer_purchases cp
 
 -- String manipulations
 /* 1. Some product names in the product table have descriptions like "Jar" or "Organic". 
@@ -85,10 +86,19 @@ Remove any trailing or leading whitespaces. Don't just use a case statement for 
 
 Hint: you might need to use INSTR(product_name,'-') to find the hyphens. INSTR will help split the column. */
 
+SELECT product_name,
+  TRIM(SUBSTR(product_name, INSTR(product_name,'-') + 1)) as description
+FROM 
+  product
 
 
 /* 2. Filter the query to show any product_size value that contain a number with REGEXP. */
 
+SELECT product_name,
+  TRIM(SUBSTR(product_name, INSTR(product_name,'-') + 1)) as description
+FROM 
+  product
+WHERE product_size REGEXP '[0-9]'
 
 
 -- UNION
