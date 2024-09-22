@@ -33,9 +33,9 @@ This table will contain only products where the `product_qty_type = 'unit'`.
 It should use all of the columns from the product table, as well as a new column for the `CURRENT_TIMESTAMP`.  
 Name the timestamp column `snapshot_timestamp`. */
 
-DROP TABLE IF EXISTS product_units;
+DROP TABLE IF EXISTS temp.product_units;
 
-CREATE TABLE  product_units AS
+CREATE TEMP TABLE  IF NOT EXISTS temp.product_units AS
  SELECT *,
  CURRENT_TIMESTAMP as snapshot_timestamp
  FROM product 
