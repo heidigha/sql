@@ -66,7 +66,12 @@ WHERE x.visit = 1
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
 
 
+SELECT customer_id,
+market_date,
+product_id,
+count(1) OVER(PARTITION by  product_id order by customer_id) as purchases
 
+FROM customer_purchases cp
 
 -- String manipulations
 /* 1. Some product names in the product table have descriptions like "Jar" or "Organic". 
