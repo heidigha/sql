@@ -2,6 +2,10 @@
 /* 1. Write a query that determines how many times each vendor has rented a booth 
 at the farmer’s market by counting the vendor booth assignments per vendor_id. */
 
+SELECT count(booth_number), vendor_id 
+
+FROM vendor_booth_assignments
+GROUP BY vendor_id
 
 
 /* 2. The Farmer’s Market Customer Appreciation Committee wants to give a bumper 
@@ -10,6 +14,16 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
+	
+SELECT customer_first_name, customer_last_name
+,SUM(quantity*cost_to_customer_per_qty) as cost
+FROM customer_purchases as cp
+INNER JOIN customer as c
+	ON c.customer_id = cp.customer_id
+GROUP by cp.customer_id
+
+HAVING cost > 2000
+ORDER BY c.customer_last_name, c.customer_first_name ASC
 
 
 --Temp Table
@@ -23,6 +37,23 @@ When inserting the new vendor, you need to appropriately align the columns to be
 -> To insert the new row use VALUES, specifying the value you want for each column:
 VALUES(col1,col2,col3,col4,col5) 
 */
+
+DROP TABLE IF EXISTS new_vendor;
+
+--make
+CREATE TEMP TABLE new_vendor AS
+
+SELECT *
+FROM vendor;
+
+SELECT * 
+FROM new_vendor;
+
+INSERT INTO new_vendor (vendor_id, vendor_name, vendor_type, vendor_owner_first_name, vendor_owner_last_name)
+VALUES (10,'Thomass Superfood Store', 'a Fresh Focused store', 'Thomas', 'Rosenthal');
+
+SELECT *
+FROM new_vendor
 
 
 
@@ -38,3 +69,27 @@ Remember that money spent is quantity*cost_to_customer_per_qty.
 HINTS: you will need to AGGREGATE, GROUP BY, and filter...
 but remember, STRFTIME returns a STRING for your WHERE statement!! */
 
+WITH customer_daily_purchases AS(
+	SELECT *,
+	STRFTIME('%m',market_date) AS market_month,
+	strftime('%Y', market_date) AS market_year,
+	SUM(quantity*cost_to_customer_per_qty) as cost
+  
+	FROM customer_purchases cp
+	GROUP BY
+	product_id, vendor_id, market_date, customer_id
+)
+
+
+SELECT 
+product_id
+,vendor_id
+,customer_id
+,market_year
+, market_month,
+sum(cost) as monthly_purchases
+
+FROM customer_daily_purchases 
+GROUP by market_year, market_month, vendor_id, product_id, customer_id
+
+HAVING market_year = '2022' AND  market_month = '04'
