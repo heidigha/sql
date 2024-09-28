@@ -31,9 +31,9 @@ Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
 Highlight at least two differences between it and your ERD. Would you change anything in yours?
 ```
-Your answer...
-```
+The AdventureWorks Schema is certainly more detailed with more data granduliry, also PK and FKs are well thoughtout and documented.
 
+I would add at the minumum change_date to all my tables and I would seperate my sales, and purchase order tables into a header table and item level table accordingly.
 # Criteria
 
 [Assignment Rubric](./assignment_rubric.md)
