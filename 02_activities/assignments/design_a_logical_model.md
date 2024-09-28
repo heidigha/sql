@@ -5,8 +5,13 @@ Create a logical model for a small bookstore. 📚
 
 At the minimum it should have employee, order, sales, customer, and book entities (tables). Determine sensible column and table design based on what you know about these concepts. Keep it simple, but work out sensible relationships to keep tables reasonably sized. Include a date table. There are several tools online you can use, I'd recommend [_Draw.io_](https://www.drawio.com/) or [_LucidChart_](https://www.lucidchart.com/pages/).
 
+
+
+![erd1](https://github.com/heidigha/sql/blob/model-design/02_activities/assignments/littlebookstore.png)
+
 ## Question 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+![erd2](https://github.com/heidigha/sql/blob/model-design/02_activities/assignments/erd2.png)
 
 ## Question 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2?
@@ -17,15 +22,18 @@ Bonus: Are there privacy implications to this, why or why not?
 ```
 Your answer...
 ```
+Both type of models have privacy implication as a customer's personal data is stored in a database where they do not have access to and there is always potential risks of their infomation being mishandled or a privacy breach.
+Type 2 would have a greater privacy implication compared to Type 1 as it contains a customer's history records.
 
+![erd3](https://github.com/heidigha/sql/blob/model-design/02_activities/assignments/erd3.png)
 ## Question 4
 Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
 Highlight at least two differences between it and your ERD. Would you change anything in yours?
 ```
-Your answer...
-```
+The AdventureWorks Schema is certainly more detailed with more data granduliry, also PK and FKs are well thoughtout and documented.
 
+I would add at the minumum change_date to all my tables and I would seperate my sales, and purchase order tables into a header table and item level table accordingly.
 # Criteria
 
 [Assignment Rubric](./assignment_rubric.md)
