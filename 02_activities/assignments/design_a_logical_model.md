@@ -7,7 +7,7 @@ At the minimum it should have employee, order, sales, customer, and book entitie
 
 
 
-https://github.com/heidigha/sql/blob/model-design/02_activities/assignments/littlebookstore.png
+![erd1](https://github.com/heidigha/sql/blob/model-design/02_activities/assignments/littlebookstore.png)
 
 ## Question 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
