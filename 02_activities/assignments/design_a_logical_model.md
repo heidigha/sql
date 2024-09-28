@@ -22,7 +22,10 @@ Bonus: Are there privacy implications to this, why or why not?
 ```
 Your answer...
 ```
+Both type of models have privacy implication as a customer's personal data is stored in a database where they do not have access to and there is always potential risks of their infomation being mishandled or a privacy breach.
+Type 2 would have a greater privacy implication compared to Type 1 as it contains a customer's history records.
 
+![erd3](https://github.com/heidigha/sql/blob/model-design/02_activities/assignments/erd3.png)
 ## Question 4
 Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
